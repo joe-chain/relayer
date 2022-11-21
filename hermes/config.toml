@@ -62,15 +62,15 @@ port = 3001
 # the relayer can send transactions and queries.
 [[chains]]
 id = 'stargaze-1'
-rpc_addr = 'https://stargaze-rpc.ibs.team:443'
-grpc_addr = 'https://grpc-stargaze-ia.cosmosia.notional.ventures:443'
-websocket_addr = 'ws://stargaze-rpc.ibs.team:443/websocket'
+rpc_addr = 'https://stargaze-rpc.polkachu.com:443'
+grpc_addr = 'http://stargaze-grpc.polkachu.com:13790'
+websocket_addr = 'ws://stargaze-rpc.polkachu.com:443/websocket'
 rpc_timeout = '10s'
 account_prefix = 'stars'
 key_name = 'hrelayer'
 address_type = { derivation = 'cosmos' }
 store_prefix = 'ibc'
-default_gas = 100000
+default_gas = 300000
 max_gas = 40000000
 gas_price = { price = 0.05, denom = 'ustars' }
 gas_multiplier = 1.1
@@ -80,7 +80,7 @@ max_tx_size = 2097152
 # Specify the maximum amount of time to tolerate a clock drift.
 # The clock drift parameter defines how much new (untrusted) header's time
 # can drift into the future. Default: 5s
-clock_drift = '5s'
+clock_drift = '15s'
 max_block_time = '30s'
 
 # Specify the amount of time to be used as the light client trusting period.
@@ -95,7 +95,7 @@ memo_prefix = 'joeece relaying'
 id = 'joe-1'
 rpc_addr = 'https://rpc.justjoe.app:443'
 grpc_addr = 'http://95.217.113.126:9090'
-websocket_addr = 'ws://95.217.113.126:26657/websocket'
+websocket_addr = 'ws://rpc.justjoe.app:443/websocket'
 rpc_timeout = '10s'
 account_prefix = 'joe'
 key_name = 'hrelayer'
@@ -106,9 +106,8 @@ gas_price = { price = 0, denom = 'ujoe' }
 gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
-clock_drift = '5s'
+clock_drift = '15s'
 max_block_time = '30s'
-# trusting_period = '1days'
 trusting_period = '10hours'
 trust_threshold = { numerator = '1', denominator = '3' }
 address_type = { derivation = 'cosmos' }
