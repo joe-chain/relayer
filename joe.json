@@ -3,7 +3,7 @@
     "value": {
     "key": "default",
     "chain-id": "joe-1",
-    "rpc-addr": "http://http://95.217.113.126:26657",
+    "rpc-addr": "http://95.217.113.126:26657",
     "account-prefix": "joe",
     "keyring-backend": "test",
     "gas-adjustment": 1.2,
