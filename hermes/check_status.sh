@@ -1,0 +1,1 @@
+hermes --config config.toml listen --chain joe-1
