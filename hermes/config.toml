@@ -1,0 +1,114 @@
+# The global section has parameters that apply globally to the relayer operation.
+[global]
+# Specify the verbosity for the relayer logging output. Default: 'info'
+# Valid options are 'error', 'warn', 'info', 'debug', 'trace'.
+log_level = 'info'
+[mode]
+
+[mode.clients]
+
+enabled = true
+refresh = true
+misbehaviour = false
+
+
+[mode.connections]
+enabled = false
+
+# Specify the channels mode.
+[mode.channels]
+enabled = false
+
+# Specify the packets mode.
+[mode.packets]
+enabled = true
+clear_interval = 100
+clear_on_start = true
+tx_confirmation = false
+
+# The REST section defines parameters for Hermes' built-in RESTful API.
+# https://hermes.informal.systems/rest.html
+[rest]
+
+# Whether or not to enable the REST service. Default: false
+enabled = true
+
+# Specify the IPv4/6 host over which the built-in HTTP server will serve the RESTful
+# API requests. Default: 127.0.0.1
+host = '127.0.0.1'
+
+# Specify the port over which the built-in HTTP server will serve the restful API
+# requests. Default: 3000
+port = 3000
+
+
+# The telemetry section defines parameters for Hermes' built-in telemetry capabilities.
+# https://hermes.informal.systems/telemetry.html
+[telemetry]
+
+# Whether or not to enable the telemetry service. Default: false
+enabled = false
+
+# Specify the IPv4/6 host over which the built-in HTTP server will serve the metrics
+# gathered by the telemetry service. Default: 127.0.0.1
+host = '127.0.0.1'
+
+# Specify the port over which the built-in HTTP server will serve the metrics gathered
+# by the telemetry service. Default: 3001
+port = 3001
+
+
+# A chains section includes parameters related to a chain and the full node to which
+# the relayer can send transactions and queries.
+[[chains]]
+id = 'stargaze-1'
+rpc_addr = 'https://stargaze-rpc.ibs.team:443'
+grpc_addr = 'https://grpc-stargaze-ia.cosmosia.notional.ventures:443'
+websocket_addr = 'ws://stargaze-rpc.ibs.team:443/websocket'
+rpc_timeout = '10s'
+account_prefix = 'stars'
+key_name = 'hrelayer'
+address_type = { derivation = 'cosmos' }
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 40000000
+gas_price = { price = 0.05, denom = 'ustars' }
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 2097152
+
+# Specify the maximum amount of time to tolerate a clock drift.
+# The clock drift parameter defines how much new (untrusted) header's time
+# can drift into the future. Default: 5s
+clock_drift = '5s'
+max_block_time = '30s'
+
+# Specify the amount of time to be used as the light client trusting period.
+# It should be significantly less than the unbonding period
+# (e.g. unbonding period = 3 weeks, trusting period = 2 weeks).
+# Default: 2/3 of the `unbonding period` for Cosmos SDK chains
+trusting_period = '9days'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'joeece relaying'
+
+[[chains]]
+id = 'joe-1'
+rpc_addr = 'https://rpc.justjoe.app:443'
+grpc_addr = 'http://95.217.113.126:9090'
+websocket_addr = 'ws://95.217.113.126:26657/websocket'
+rpc_timeout = '10s'
+account_prefix = 'joe'
+key_name = 'hrelayer'
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 40000000
+gas_price = { price = 0, denom = 'ujoe' }
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 2097152
+clock_drift = '5s'
+max_block_time = '30s'
+# trusting_period = '1days'
+trusting_period = '10hours'
+trust_threshold = { numerator = '1', denominator = '3' }
+address_type = { derivation = 'cosmos' }

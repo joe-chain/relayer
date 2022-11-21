@@ -1,0 +1,24 @@
+# https://github.com/cosmos/relayer
+
+rly config init
+
+rly chains add stargaze
+
+rly chains add --url https://raw.githubusercontent.com/joe-chain/relayer/main/joe.json joe
+
+rly keys restore juno default "words here"
+
+juno1tpxhlmfqph4guttpjedqhsezndhtzy8zlvyj53
+joe1tpxhlmfqph4guttpjedqhsezndhtzy8zq23hrm
+stars1tpxhlmfqph4guttpjedqhsezndhtzy8zazs5cu
+
+# rly paths new juno-1 joe-1 junojoe
+rly paths new stargaze-1 joe-1 starjoe
+
+rly transact link starjoe
+# rly transact channel starjoe --src-port transfer --dst-port transfer --order unordered --version ics20-1
+
+rly paths list
+
+rly start junojoe
+rly start starjoe

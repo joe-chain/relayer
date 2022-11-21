@@ -1,0 +1,48 @@
+ibc-setup init --src stargaze --dest joe (THIS WILL FAIL)
+
+```
+  stargaze:
+    chain_id: stargaze-1
+    prefix: stars
+    gas_price: 0.05ustars
+    hd_path: m/44'/118'/0'/0/0
+    ics20_port: 'transfer'
+    estimated_block_time: 7000
+    estimated_indexer_time: 250
+    rpc:
+      - https://rpc.stargaze-apis.com:443
+  joe:
+    chain_id: joe-1
+    prefix: joe
+    gas_price: 0.0ujoe
+    hd_path: m/44'/118'/0'/0/0
+    ics20_port: 'transfer'
+    estimated_block_time: 7000
+    estimated_indexer_time: 250
+    rpc:
+      - https://rpc.justjoe.app:443
+```
+
+ibc-setup init --src stargaze --dest joe
+
+# edit app.toml with your mnumonic 
+# stars1tpxhlmfqph4guttpjedqhsezndhtzy8zazs5cu
+
+ibc-setup ics20 -v
+# Created channel:
+  # juno-1: transfer/channel-199 (connection-254)
+  # joe-1: transfer/channel-4 (connection-6)
+
+ibc-relayer start -v --poll 7
+
+
+# sending juno from relayer -> reeces main wallet
+junod tx ibc-transfer transfer transfer channel-199 joe10r39fueph9fq7a6lgswu4zdsg8t3gxlq9c66u9 250000ujuno --from juno1tpxhlmfqph4guttpjedqhsezndhtzy8zlvyj53 --node https://rpc.juno.strange.love:443 --chain-id juno-1 --fees 5000ujuno --packet-timeout-height 0-0
+# send back
+joed tx ibc-transfer transfer transfer channel-4 juno1tpxhlmfqph4guttpjedqhsezndhtzy8zlvyj53 5ujuno --from reece --node https://rpc.justjoe.app:443 --chain-id joe-1 --packet-timeout-height 0-0
+
+
+# Stargaze
+junod q bank balances juno1tpxhlmfqph4guttpjedqhsezndhtzy8zlvyj53
+joed q bank balances joe10r39fueph9fq7a6lgswu4zdsg8t3gxlq9c66u9
+sztarsd q bank balances joe10r39fueph9fq7a6lgswu4zdsg8t3gxlq9c66u9
